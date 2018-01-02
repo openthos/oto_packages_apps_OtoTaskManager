@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">任务管理器</string>
+    <string name="refresh">刷新</string>
+    <string name="sleep">休眠</string>
+    <string name="add">添加</string>
+    <string name="about">关于</string>
+    <string name="stop_auto_sleep">停止自动休眠</string>
+    <string name="more_application">更多应用</string>
+    <string name="show_all">显示全部</string>
+    <string name="search">搜索</string>
+    <string name="app_look_adviser">应用排查顾问</string>
+    <string name="confirm">确认</string>
+    <string name="have_sleep">已休眠</string>
+    <string name="wait_sleep">待休眠</string>
+    <string name="start">启动</string>
+    <string name="remove">移除</string>
+    <string name="runnig_application">正在运行</string>
+    <string name="affect_application">可能影响运行的应用</string>
+</resources>

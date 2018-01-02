@@ -1,0 +1,17 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Light.NoTitleBar">
+    </style>
+
+    <style name="CommonTextStyle">
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textSize">@dimen/common_text_size</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="ToolbarStyle">
+        <item name="android:overlapAnchor">false</item>
+        <item name="android:background">?android:attr/colorAccent</item>
+    </style>
+</resources>
