@@ -81,46 +81,28 @@
             android:layout_height="match_parent"
             android:background="@color/line"/>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/add_or_remove"
+            style="@style/ItemTextStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/img1"
-                android:layout_width="@dimen/image_size"
-                android:layout_height="@dimen/image_size"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/padding_ten"
-                />
-
-            <ImageView
-                android:id="@+id/img2"
-                android:layout_width="@dimen/image_size"
-                android:layout_height="@dimen/image_size"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/padding_ten"
-                />
-        </LinearLayout>
+            android:layout_weight="1"
+            android:text="@string/add_or_remove"
+            />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@color/line"/>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/dormant"
+            style="@style/ItemTextStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/dormant"
-                android:layout_width="@dimen/image_size"
-                android:layout_height="@dimen/image_size"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/padding_ten"
-                android:src="@mipmap/un_dormant"
-                />
-        </LinearLayout>
+            android:layout_weight="1"
+            android:text="@string/dormant"
+            />
     </LinearLayout>
+
 </LinearLayout>

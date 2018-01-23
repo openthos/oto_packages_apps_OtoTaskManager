@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.openthos.greenify.R;
-import com.openthos.greenify.entity.AppLayoutInfo;
+import com.openthos.greenify.bean.AppLayoutInfo;
 import com.openthos.greenify.listener.OnListClickListener;
 import com.openthos.greenify.view.CustomListView;
 
@@ -52,18 +52,18 @@ public class AppLayoutAdapter extends BasicAdapter {
         holder.type.setText(appLayoutInfo.getType());
         AppListAdapter adapter = new AppListAdapter(mContext, appLayoutInfo.getAppInfos());
         holder.listView.setAdapter(adapter);
-        adapter.refresh();
+        adapter.refreshList();
         adapter.setOnListClickListener(mOnListClickListener);
         return convertView;
     }
 
-    @Override
-    public void refresh() {
-        notifyDataSetChanged();
-    }
-
     public void setOnListClickListener(OnListClickListener onListClickListener) {
         mOnListClickListener = onListClickListener;
+    }
+
+    @Override
+    public void refreshList() {
+        notifyDataSetChanged();
     }
 
     private class ViewHolder {
