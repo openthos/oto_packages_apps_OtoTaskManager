@@ -1,8 +1,10 @@
 package com.openthos.greenify.bean;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Debug;
 
 import com.openthos.greenify.app.Constants;
 
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppInfo {
+    private ActivityManager mManager;
     private String appName;
     private String packageName;
     private List<String> processNames;
@@ -82,11 +85,19 @@ public class AppInfo {
         this.cpuUsage = cpuUsage;
     }
 
-    public String getMemoryUsage() {
-        if (memoryUsage == 0) {
-            return "";
+    public long getMemoryUsage(Context context) {
+        memoryUsage = 0;
+        if (pids.size() != 0) {
+            if (mManager == null) {
+                mManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            }
+            for (Integer pid : pids) {
+                memoryUsage +=
+                        mManager.getProcessMemoryInfo(new int[]{pid})[0].getTotalPrivateDirty();
+            }
+
         }
-        return String.valueOf(memoryUsage);
+        return memoryUsage * Constants.KB;
     }
 
     public void setMemoryUsage(long memoryUsage) {
