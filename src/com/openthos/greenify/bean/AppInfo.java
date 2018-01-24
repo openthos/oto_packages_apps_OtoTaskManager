@@ -95,7 +95,6 @@ public class AppInfo {
                 memoryUsage +=
                         mManager.getProcessMemoryInfo(new int[]{pid})[0].getTotalPrivateDirty();
             }
-
         }
         return memoryUsage * Constants.KB;
     }

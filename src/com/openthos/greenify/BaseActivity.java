@@ -5,12 +5,9 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.ProviderInfo;
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -22,9 +19,8 @@ import com.openthos.greenify.bean.AppInfo;
 import com.openthos.greenify.utils.DormantAppUtils;
 import com.openthos.greenify.utils.NonDormantAppUtils;
 
-
 public abstract class BaseActivity extends FragmentActivity {
-    public static int DELAY_TIME_REFRESH = 500;
+    public static int DELAY_TIME_REFRESH = 1000;
 
     private static Map<String, AppInfo> mNotSystemApps;
 
