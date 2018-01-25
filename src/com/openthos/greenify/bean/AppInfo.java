@@ -201,7 +201,7 @@ public class AppInfo {
             }
 
             sampleValue = ((double) (appTime - lastAppCpuTime) / (double) (cpuTime - lastCpuTime));
-            if (cpuTime - lastCpuTime > Constants.TIME_TWO_MINUTE) {
+            if (cpuTime - lastCpuTime > Constants.TIME_CPU_REFRESH) {
                 lastCpuTime = cpuTime;
                 lastAppCpuTime = appTime;
             }
