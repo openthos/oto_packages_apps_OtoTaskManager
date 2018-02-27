@@ -2,7 +2,7 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     coreApp="true"
-    package="com.openthos.greenify"
+    package="com.openthos.taskmanager"
     android:sharedUserId="android.uid.system">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>

@@ -37,7 +37,7 @@ LOCAL_PROTOC_FLAGS := --proto_path=$(LOCAL_PATH)/protos/
 
 LOCAL_SDK_VERSION := current
 
-LOCAL_PACKAGE_NAME := OtoGreenify
+LOCAL_PACKAGE_NAME := OtoTaskManager
 
 LOCAL_CERTIFICATE := platform
 LOCAL_PRIVILEGED_MODULE := true
