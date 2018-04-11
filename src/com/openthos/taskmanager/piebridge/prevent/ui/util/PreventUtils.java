@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
+import android.util.Log;
 
 import com.openthos.taskmanager.R;
 import com.openthos.taskmanager.piebridge.prevent.common.PreventIntent;
@@ -34,9 +35,11 @@ public class PreventUtils {
     }
 
     public static void updatePreventPkg(Context context, String[] packages, boolean add) {
+        Log.i("Smaster --> ", "packages::" + packages);
         if (packages == null || packages.length == 0) {
             return;
         }
+        Log.i("Smaster --> ", "send broadcast");
         Intent intent = new Intent(PreventIntent.ACTION_UPDATE_PREVENT,
                 Uri.fromParts(PreventIntent.SCHEME, context.getPackageName(), null));
         intent.setFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
@@ -96,6 +99,7 @@ public class PreventUtils {
             String action = intent.getAction();
             String result = getResultData();
             if (PreventIntent.ACTION_UPDATE_PREVENT.equals(action) && result != null) {
+                Log.i("Smaster -->", "PreventListReceiver --> " + result);
                 handlePackages(context, result);
             }
         }

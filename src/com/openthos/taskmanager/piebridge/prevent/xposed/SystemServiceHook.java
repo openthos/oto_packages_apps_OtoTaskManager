@@ -227,19 +227,19 @@ public class SystemServiceHook extends XC_MethodHook {//XC_MehodHook是xposed ja
             hookMethods(activityManagerService, method, hook);
         } catch (LinkageError e) {
             logLinkageError(method, e);
-            if (sdk >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            if (sdk >= 21) {
                 // sdk 22, sdk 23
                 Class<?> taskRecord = Class.forName("com.android.server.am.TaskRecord", false, classLoader);
                 XposedHelpers.findAndHookMethod(activityManagerService, method,
                         taskRecord, boolean.class,
                         hook);
-            } else if (sdk >= Build.VERSION_CODES.JELLY_BEAN) {
+            } else if (sdk >= 16) {
                 // sdk 16, sdk 17, sdk 18, sdk 19, sdk 21
                 Class<?> taskRecord = Class.forName("com.android.server.am.TaskRecord", false, classLoader);
                 XposedHelpers.findAndHookMethod(activityManagerService, method,
                         taskRecord, int.class,
                         hook);
-            } else if (sdk >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            } else if (sdk >= 14) {
                 // sdk 14, sdk 15
                 Class<?> activityRecord = Class.forName("com.android.server.am.ActivityRecord", false, classLoader);
                 XposedHelpers.findAndHookMethod(activityManagerService, method,
@@ -259,12 +259,12 @@ public class SystemServiceHook extends XC_MethodHook {//XC_MehodHook是xposed ja
         } catch (LinkageError e) {
             logLinkageError(method, e);
             Class<?> iServiceConnection = Class.forName("android.app.IServiceConnection", false, classLoader);
-            if (sdk >= Build.VERSION_CODES.M) {
+            if (sdk >= 23) {
                 // sdk 23
                 XposedHelpers.findAndHookMethod(activityManagerService, method,
                         IApplicationThread.class, IBinder.class, Intent.class, String.class, iServiceConnection, int.class, String.class, int.class,
                         hook);
-            } else if (sdk >= Build.VERSION_CODES.JELLY_BEAN) {
+            } else if (sdk >= 16) {
                 // sdk 16, sdk 17, sdk 18, sdk 19, sdk 21, sdk 22
                 XposedHelpers.findAndHookMethod(activityManagerService, method,
                         IApplicationThread.class, IBinder.class, Intent.class, String.class, iServiceConnection, int.class, int.class,
@@ -286,12 +286,12 @@ public class SystemServiceHook extends XC_MethodHook {//XC_MehodHook是xposed ja
             hookMethods(activityManagerService, method, hook);
         } catch (LinkageError e) {
             logLinkageError(method, e);
-            if (sdk >= Build.VERSION_CODES.M) {
+            if (sdk >= 23) {
                 // sdk 23
                 XposedHelpers.findAndHookMethod(activityManagerService, method,
                         IApplicationThread.class, Intent.class, String.class, String.class, int.class,
                         hook);
-            } else if (sdk >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            } else if (sdk >= 18) {
                 // sdk 18, sdk 19, sdk 21, sdk 22
                 XposedHelpers.findAndHookMethod(activityManagerService, method,
                         IApplicationThread.class, Intent.class, String.class, int.class,
@@ -315,17 +315,17 @@ public class SystemServiceHook extends XC_MethodHook {//XC_MehodHook是xposed ja
         } catch (LinkageError e) {
             logLinkageError(method, e);
             Class<?> iIntentReceiver = Class.forName("android.content.IIntentReceiver", false, classLoader);
-            if (sdk >= Build.VERSION_CODES.M) {
+            if (sdk >= 23) {
                 // sdk 23
                 XposedHelpers.findAndHookMethod(activityManagerService, method,
                         IApplicationThread.class, Intent.class, String.class, iIntentReceiver, int.class, String.class, Bundle.class, String[].class, int.class, Bundle.class, boolean.class, boolean.class, int.class,
                         hook);
-            } else if (sdk >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            } else if (sdk >= 18) {
                 // sdk 18, sdk 19, sdk 21, sdk 22
                 XposedHelpers.findAndHookMethod(activityManagerService, method,
                         IApplicationThread.class, Intent.class, String.class, iIntentReceiver, int.class, String.class, Bundle.class, String.class, int.class, boolean.class, boolean.class, int.class,
                         hook);
-            } else if (sdk >= Build.VERSION_CODES.JELLY_BEAN) {
+            } else if (sdk >= 16) {
                 // sdk 16, sdk 17
                 XposedHelpers.findAndHookMethod(activityManagerService, method,
                         IApplicationThread.class, Intent.class, String.class, iIntentReceiver, int.class, String.class, Bundle.class, String.class, boolean.class, boolean.class, int.class,

@@ -54,7 +54,7 @@ public class ThemeUtils {
         try {
             ActionBar actionBar = activity.getActionBar();
             if (actionBar != null) {
-                actionBar.setActionBarViewCollapsable(true);
+                //actionBar.setActionBarViewCollapsable(true);
             }
         } catch (NoSuchMethodError e) { // NOSONAR
             // do nothing

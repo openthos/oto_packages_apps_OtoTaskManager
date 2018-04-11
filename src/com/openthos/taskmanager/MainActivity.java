@@ -123,17 +123,18 @@ public class MainActivity extends BaseActivity implements OnListClickListener, V
         Map<String, AppInfo> appInfosMap = getAppInfosMap();
         for (String packageName : appInfosMap.keySet()) {
             AppInfo appInfo = getAppInfoByPkgName(packageName);
-//            if (appInfo.isRun()) {
-            switch (appInfo.getDormantState()) {
-                case Constants.APP_NON_DORMANT:
-                    mNonNeedDormants.add(appInfo);
+            if (appInfo.isRun()) {
+                switch (appInfo.getDormantState()) {
+                    case Constants.APP_NON_DORMANT:
+                        mNonNeedDormants.add(appInfo);
                     break;
-                case Constants.App_NON_DEAL:
-                    mWaitDormants.add(appInfo);
+                    case Constants.App_NON_DEAL:
+                        mWaitDormants.add(appInfo);
                     break;
-//                }
+                }
             }
         }
+
         if (mNonNeedDormants.size() != 0) {
             mDatas.add(new AppLayoutInfo(getString(R.string.non_dormant), mNonNeedDormants));
         }

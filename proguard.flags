@@ -71,4 +71,10 @@
   public protected *;
 }
 
+-dontwarn de.robv.android.xposed.*
+-dontwarn de.robv.android.xposed.services.*
+-dontwarn android.app.AndroidAppHelper
+-dontwarn android.content.res.*
+-dontwarn eu.chainfire.libsuperuser.Debug
+
 -dontwarn com.squareup.picasso.OkHttpDownloader

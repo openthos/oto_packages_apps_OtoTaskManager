@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import android.os.RemoteException;
 
 import com.openthos.taskmanager.piebridge.prevent.common.GmsUtils;
 import com.openthos.taskmanager.piebridge.prevent.framework.PreventLog;
@@ -139,7 +140,13 @@ public class SafeActionUtils {
         if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(action) || GmsUtils.isGcmAction(null, false, action)) {
             return true;
         }
-        return !action.startsWith("android.intent.action") && !AppGlobals.getPackageManager().isProtectedBroadcast(action);
+        boolean flag = false;
+        try {
+            flag = !action.startsWith("android.intent.action") && !AppGlobals.getPackageManager().isProtectedBroadcast(action);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return flag;
     }
 
     public static void updateWidget(ComponentName component, boolean added) {
@@ -152,8 +159,8 @@ public class SafeActionUtils {
                 widgets.remove(component);
             }
             if (!retrievedSearchWidget && SystemHook.getContext() != null) {
-                searchWidget = getSearchWidgetProvider(SystemHook.getContext());
-                PreventLog.i("search widget: " + searchWidget);
+                //searchWidget = getSearchWidgetProvider(SystemHook.getContext());
+                //PreventLog.i("search widget: " + searchWidget);
                 retrievedSearchWidget = true;
             }
         }
@@ -192,13 +199,16 @@ public class SafeActionUtils {
     }
 
     public static boolean isUnsafeService(ComponentName cn) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ServiceInfo si = AppGlobals.getPackageManager().getServiceInfo(cn, 0, 0);
-            return si != null && (JobService.PERMISSION_BIND.equals(si.permission)
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ServiceInfo si = AppGlobals.getPackageManager().getServiceInfo(cn, 0, 0);
+                return si != null && (JobService.PERMISSION_BIND.equals(si.permission)
                     || Manifest.permission.BIND_VOICE_INTERACTION.equals(si.permission));
-        } else {
-            return false;
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
     public static ComponentName getSearchWidgetProvider(Context context) {
@@ -240,12 +250,15 @@ public class SafeActionUtils {
     }
 
     public static boolean isSafeService(ComponentName cn) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            ServiceInfo si = AppGlobals.getPackageManager().getServiceInfo(cn, 0, 0);
-            return si != null && Manifest.permission.BIND_NFC_SERVICE.equals(si.permission);
-        } else {
-            return false;
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                ServiceInfo si = AppGlobals.getPackageManager().getServiceInfo(cn, 0, 0);
+                return si != null && Manifest.permission.BIND_NFC_SERVICE.equals(si.permission);
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
 }

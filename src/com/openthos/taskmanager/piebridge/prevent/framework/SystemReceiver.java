@@ -94,6 +94,7 @@ public class SystemReceiver extends ActivityReceiver {
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         if (MANAGER_ACTIONS.contains(action)) {
+            Log.i("Smaster --> ", "accepted MANAGER_ACTIONS" + action);
             handleManager(context, intent, action);
         } else if (PACKAGE_ACTIONS.contains(action)) {
             handlePackage(intent, action);
@@ -110,6 +111,7 @@ public class SystemReceiver extends ActivityReceiver {
         } else if (PreventIntent.ACTION_GET_INFO.equals(action)) {
             handleGetInfo();
         } else if (PreventIntent.ACTION_UPDATE_PREVENT.equals(action)) {
+            Log.i("Smaster --> ", "accepted ACTION_UPDATE_PREVENT");
             handleUpdatePrevent(action, intent);
         } else if (PreventIntent.ACTION_SYSTEM_LOG.equals(action)) {
             sendLogAsync();
@@ -367,7 +369,7 @@ public class SystemReceiver extends ActivityReceiver {
                 prevents.remove(name);
             }
         }
-        //存储到本地
+        Log.i("Smaster -->", " handleUpdatePrevent" + action);
         PreventListUtils.getInstance().save(mContext, mPreventPackages.keySet(), true);
         setResultCode(prevents.size());
         setResultData(new JSONObject(prevents).toString());

@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import android.util.Log;
 
 import com.openthos.taskmanager.bean.AppInfo;
 import com.openthos.taskmanager.listener.OnCpuChangeListener;
@@ -144,10 +145,12 @@ public abstract class BaseActivity extends FragmentActivity {
             if (isAdd) {
                 PreventAppUtils.getInstance(this).saveAddedApp(packageName, appInfo.getAppName());
                 appInfo.setAutoPrevent(true);
+                Log.i("Smaster -->", "auto true");
                 PreventUtils.updatePreventPkg(this, new String[]{packageName}, true);
             } else {
                 PreventAppUtils.getInstance(this).removeAddApp(packageName);
                 appInfo.setAutoPrevent(false);
+                Log.i("Smaster --> ", "auto false");
                 PreventUtils.updatePreventPkg(this, new String[]{packageName}, false);
             }
         }
@@ -226,8 +229,10 @@ public abstract class BaseActivity extends FragmentActivity {
             mNotSystemApps.get(packageName).setRun(false);
         }
         AppInfo appInfo;
+        Log.i("pkgName-->", "info" + runningAppProcesses.size());
         for (ActivityManager.RunningAppProcessInfo info : runningAppProcesses) {
             for (String pkgName : info.pkgList) {
+                Log.i("pkgName-->", "pkg" + pkgName);
                 if (mNotSystemApps.containsKey(pkgName)) {
                     appInfo = mNotSystemApps.get(pkgName);
                     appInfo.setRun(true);
@@ -236,6 +241,7 @@ public abstract class BaseActivity extends FragmentActivity {
                 }
             }
         }
+        Log.i("pkgName-->", "pkg-------------------------------");
     }
 
     /**

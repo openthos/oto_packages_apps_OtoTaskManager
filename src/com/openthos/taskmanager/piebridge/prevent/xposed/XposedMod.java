@@ -10,10 +10,6 @@ public class XposedMod implements IXposedHookZygoteInit {
 
     @Override
     public void initZygote(IXposedHookZygoteInit.StartupParam startupParam) throws Throwable {
-        /**
-         * hook系统中的 ActivityThread 中的 systemMain 方法；
-         * 具体在SystemServiceHook中；
-         * */
         Log.i("initZygote:::", "Smaster");
         XposedBridge.hookAllMethods(ActivityThread.class, "systemMain", new SystemServiceHook());
     }

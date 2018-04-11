@@ -18,16 +18,16 @@ public class StatusUtils {
     private static SparseIntArray statusMap = new SparseIntArray();
 
     static {
-        statusMap.put(ActivityManager.RunningAppProcessInfo.IMPORTANCE_BACKGROUND, R.string.importance_background);
-        statusMap.put(ActivityManager.RunningAppProcessInfo.IMPORTANCE_EMPTY, R.string.importance_empty);
-        statusMap.put(ActivityManager.RunningAppProcessInfo.IMPORTANCE_GONE, R.string.importance_gone);
-        statusMap.put(ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND, R.string.importance_foreground);
-        statusMap.put(ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND_SERVICE, R.string.importance_foreground_service);
-        statusMap.put(ActivityManager.RunningAppProcessInfo.IMPORTANCE_TOP_SLEEPING, R.string.importance_top_sleeping);
-        statusMap.put(ActivityManager.RunningAppProcessInfo.IMPORTANCE_PERCEPTIBLE, R.string.importance_perceptible);
-        statusMap.put(ActivityManager.RunningAppProcessInfo.IMPORTANCE_SERVICE, R.string.importance_service);
-        statusMap.put(ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE, R.string.importance_visible);
-        statusMap.put(-ActivityManager.RunningAppProcessInfo.IMPORTANCE_SERVICE, R.string.importance_service_not_started);
+        statusMap.put(400, R.string.importance_background);
+        statusMap.put(500, R.string.importance_empty);
+        statusMap.put(1000, R.string.importance_gone);
+        statusMap.put(100, R.string.importance_foreground);
+        statusMap.put(125, R.string.importance_foreground_service);
+        statusMap.put(150, R.string.importance_top_sleeping);
+        statusMap.put(130, R.string.importance_perceptible);
+        statusMap.put(300, R.string.importance_service);
+        statusMap.put(200, R.string.importance_visible);
+        statusMap.put(-300, R.string.importance_service_not_started);
     }
 
     private StatusUtils() {
@@ -38,8 +38,9 @@ public class StatusUtils {
         if (running == null) {
             return context.getString(R.string.not_running);
         } else {
-            if (running.contains((long) ActivityManager.RunningAppProcessInfo.IMPORTANCE_SERVICE) && running.contains((long) -ActivityManager.RunningAppProcessInfo.IMPORTANCE_SERVICE)) {
-                running.remove((long) -ActivityManager.RunningAppProcessInfo.IMPORTANCE_SERVICE);
+            if (running.contains((long) 300) 
+                && running.contains((long) -300)) {
+                running.remove((long) -300);
             }
             return doFormatRunning(context, running);
         }

@@ -352,13 +352,18 @@ public final class SystemHook {
         }
     }
 
+    /**
+     *  Do not understand 
+     *  Comments current.
+     *
+     */
     private static boolean isAppInactive(IUsageStatsManager usm, String packageName) {
-        try {
-            return usm.isAppInactive(packageName, 0);
-        } catch (RemoteException e) {
-            PreventLog.d("remote exception " + packageName, e);
+        //try {
+        //    return usm.isAppInactive(packageName, 0);
+        //} catch (RemoteException e) {
+        //    PreventLog.d("remote exception " + packageName, e);
             return false;
-        }
+       // }
     }
 
     public static boolean killNoFather() {
@@ -567,7 +572,7 @@ public final class SystemHook {
     }
 
     public static boolean isUseAppStandby() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Configuration.getDefault().isUseAppStandby();
+        return Build.VERSION.SDK_INT >= 23 && Configuration.getDefault().isUseAppStandby();
     }
 
     public static void setNotSupported() {
