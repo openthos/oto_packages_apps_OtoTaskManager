@@ -15,7 +15,7 @@ import com.openthos.taskmanager.app.Constants;
 import com.openthos.taskmanager.bean.AppInfo;
 import com.openthos.taskmanager.listener.OnListClickListener;
 import com.openthos.taskmanager.utils.ToolUtils;
-
+import android.util.Log;
 import java.util.List;
 
 public class AppListAdapter extends BasicAdapter {
@@ -55,21 +55,22 @@ public class AppListAdapter extends BasicAdapter {
         AppInfo appInfo = mDatas.get(position);
         holder.icon.setImageDrawable(appInfo.getIcon());
         holder.name.setText(appInfo.getAppName());
+        Log.i("Smaster-->", "getCpuUsage:::" + appInfo.getCpuUsage());
         holder.cpu.setText(appInfo.isRun() ? appInfo.getCpuUsage() : "");
-        holder.memory.setText(ToolUtils.transformFileSize(appInfo.getMemoryUsage(mContext)));
+        holder.memory.setText(appInfo.getMemoryUsage() + "MB");
         holder.battery.setText(appInfo.getBatteryUsage());
 
-        switch (appInfo.getDormantState()) {
-            case Constants.APP_NON_DORMANT:
-                holder.add.setText(mContext.getString(R.string.non_dormant));
-                break;
-            case Constants.App_NON_DEAL:
-                holder.add.setText(mContext.getString(R.string.wait_dormant));
-                break;
-        }
-        holder.prevent.setText(appInfo.isAutoPrevent()
-                ? mContext.getString(R.string.prevent)
-                : mContext.getString(R.string.remove));
+        //switch (appInfo.getDormantState()) {
+        //    case Constants.APP_NON_DORMANT:
+        //        holder.add.setText(mContext.getString(R.string.non_dormant));
+        //        break;
+        //    case Constants.App_NON_DEAL:
+        //        holder.add.setText(mContext.getString(R.string.wait_dormant));
+        //        break;
+        // }
+        holder.prevent.setImageResource(appInfo.isAutoPrevent()
+                ? R.mipmap.ic_menu_block
+                : R.mipmap.ic_menu_prevent);
         holder.dormant.setTag(appInfo.getPackageName());
         holder.add.setTag(appInfo.getPackageName());
         holder.prevent.setTag(appInfo.getPackageName());
@@ -97,10 +98,9 @@ public class AppListAdapter extends BasicAdapter {
         private TextView cpu;
         private TextView memory;
         private TextView battery;
-        private TextView add;
-        private TextView dormant;
-        private TextView prevent;
-        ;
+        private ImageView add;
+        private ImageView dormant;
+        private ImageView prevent;
 
         public ViewHolder(View view) {
             layout = (LinearLayout) view.findViewById(R.id.layout);
@@ -109,9 +109,9 @@ public class AppListAdapter extends BasicAdapter {
             cpu = (TextView) view.findViewById(R.id.cpu_usage);
             memory = (TextView) view.findViewById(R.id.memory_usage);
             battery = (TextView) view.findViewById(R.id.battery_usage);
-            add = (TextView) view.findViewById(R.id.add_or_remove);
-            dormant = (TextView) view.findViewById(R.id.dormant);
-            prevent = (TextView) view.findViewById(R.id.prevent);
+            add = (ImageView) view.findViewById(R.id.add_or_remove);
+            dormant = (ImageView) view.findViewById(R.id.dormant);
+            prevent = (ImageView) view.findViewById(R.id.prevent);
             layout.setOnClickListener(this);
             add.setOnClickListener(this);
             dormant.setOnClickListener(this);

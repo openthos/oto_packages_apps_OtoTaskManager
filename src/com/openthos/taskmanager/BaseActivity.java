@@ -17,7 +17,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import android.util.Log;
+import android.os.Debug;
 
+import com.openthos.taskmanager.utils.ProcessManager;
+import com.openthos.taskmanager.utils.memory.AndroidAppProcess;
 import com.openthos.taskmanager.bean.AppInfo;
 import com.openthos.taskmanager.listener.OnCpuChangeListener;
 import com.openthos.taskmanager.piebridge.prevent.ui.util.PreventUtils;
@@ -145,12 +148,10 @@ public abstract class BaseActivity extends FragmentActivity {
             if (isAdd) {
                 PreventAppUtils.getInstance(this).saveAddedApp(packageName, appInfo.getAppName());
                 appInfo.setAutoPrevent(true);
-                Log.i("Smaster -->", "auto true");
                 PreventUtils.updatePreventPkg(this, new String[]{packageName}, true);
             } else {
                 PreventAppUtils.getInstance(this).removeAddApp(packageName);
                 appInfo.setAutoPrevent(false);
-                Log.i("Smaster --> ", "auto false");
                 PreventUtils.updatePreventPkg(this, new String[]{packageName}, false);
             }
         }
@@ -201,6 +202,7 @@ public abstract class BaseActivity extends FragmentActivity {
                             for (String packageName : mNotSystemApps.keySet()) {
                                 AppInfo appInfo = mNotSystemApps.get(packageName);
                                 for (int pid : appInfo.getPids()) {
+                                    appInfo.addCpuUsage(cpuUsed);
                                     if (split[0].equals(String.valueOf(pid))) {
                                         appInfo.addCpuUsage(cpuUsed);
                                         break;
@@ -225,24 +227,38 @@ public abstract class BaseActivity extends FragmentActivity {
     public void initRunningAPP() {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> runningAppProcesses = manager.getRunningAppProcesses();
+
         for (String packageName : mNotSystemApps.keySet()) {
             mNotSystemApps.get(packageName).setRun(false);
         }
         AppInfo appInfo;
-        Log.i("pkgName-->", "info" + runningAppProcesses.size());
         for (ActivityManager.RunningAppProcessInfo info : runningAppProcesses) {
             for (String pkgName : info.pkgList) {
-                Log.i("pkgName-->", "pkg" + pkgName);
                 if (mNotSystemApps.containsKey(pkgName)) {
                     appInfo = mNotSystemApps.get(pkgName);
                     appInfo.setRun(true);
                     appInfo.addProcessName(info.processName);
                     appInfo.addPid(info.pid);
+                    appInfo.setMemoryUsage(getMemorySize(pkgName));
                 }
             }
         }
-        Log.i("pkgName-->", "pkg-------------------------------");
     }
+
+    private double getMemorySize(String pkg) {
+        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        List<AndroidAppProcess> listInfo = ProcessManager.getRunningAppProcesses();
+        for (AndroidAppProcess info : listInfo) {
+            if (pkg.equals(info.name)) {
+                int[] mempid = new int[]{info.pid};
+                Debug.MemoryInfo[] memoryInfo = am.getProcessMemoryInfo(mempid);
+                double memSize = memoryInfo[0].getTotalPss() / 1024;
+                return memSize;
+            }
+        }
+        return 0.0;
+    }
+
 
     /**
      * Kill the application process

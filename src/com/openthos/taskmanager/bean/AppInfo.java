@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 
 import com.openthos.taskmanager.app.Constants;
-
+import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class AppInfo {
     private Drawable icon;
     private List<Integer> pids;
     private double cpuUsage;
-    private long memoryUsage;
+    private double memoryUsage;
     private String batteryUsage;
     private boolean isRun;
     private boolean isDormant;
@@ -82,22 +82,12 @@ public class AppInfo {
         this.cpuUsage += cpuUsage;
     }
 
-    public long getMemoryUsage(Context context) {
-        memoryUsage = 0;
-        if (pids.size() != 0) {
-            if (mManager == null) {
-                mManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-            }
-            for (Integer pid : pids) {
-//                memoryUsage +=
-//                        mManager.getProcessMemoryInfo(new int[]{pid})[0].getTotalPrivateDirty();
-            }
-        }
-        return memoryUsage * Constants.KB;
+    public double getMemoryUsage() {
+        return memoryUsage;
     }
 
-    public void setMemoryUsage(long memoryUsage) {
-        this.memoryUsage += memoryUsage;
+    public void setMemoryUsage(double memoryUsage) {
+        this.memoryUsage = memoryUsage;
     }
 
     public String getBatteryUsage() {
