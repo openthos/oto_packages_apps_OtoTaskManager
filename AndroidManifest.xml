@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    coreApp="true"
-    package="com.openthos.taskmanager"
-    android:sharedUserId="android.uid.system">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.openthos.taskmanager"
+          coreApp="true"
+          android:installLocation="internalOnly">
+
+    <permission
+        android:name="com.openthos.taskmanager.permission.MANAGER"
+        android:protectionLevel="signature"/>
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.REAL_GET_TASKS"/>
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <permission android:name="android.permission.ACCESS_SUPERUSER"/>
+    <uses-permission android:name="com.android.vending.BILLING"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.openthos.taskmanager.permission.MANAGER"/>
 
     <application
         android:allowBackup="true"
@@ -16,13 +22,53 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.openthos.taskmanager.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+            <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+            <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true"/>
+        <meta-data
+            android:name="xposeddescription"
+            android:value="@string/xposed_summary"/>
+        <meta-data
+            android:name="xposedminversion"
+            android:value="2.1+"/>
+
+        <activity
+            android:name="com.openthos.taskmanager.piebridge.prevent.ui.PreventActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+                <!--<action android:name="com.openthos.taskmanager.piebridge.prevent.NOT_SUPPORTED"/>-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".piebridge.prevent.ui.AdvancedSettingsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/advanced_settings"
+            android:windowSoftInputMode="stateHidden"/>
+
+        <activity
+            android:name=".piebridge.prevent.ui.UserGuideActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/user_guide"
+            android:windowSoftInputMode="stateHidden"/>
+
+        <provider
+            android:name="com.openthos.taskmanager.piebridge.prevent.ui.PreventProvider"
+            android:authorities="com.openthos.taskmanager.piebridge.prevent.provider"
+            android:permission="android.permission.SHUTDOWN"/>
     </application>
 
 </manifest>
